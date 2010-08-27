@@ -1,0 +1,1 @@
+cmd_/home/jim/mbxsimulator/group/../driver/mbxsimulator.ko := ld -m elf_i386 -m elf_i386 -r -o /home/jim/mbxsimulator/group/../driver/mbxsimulator.ko /home/jim/mbxsimulator/group/../driver/mbxsimulator.o /home/jim/mbxsimulator/group/../driver/mbxsimulator.mod.o

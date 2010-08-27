@@ -1,0 +1,25 @@
+####TARGET####
+
+# Build device driver
+make
+
+# Build loader
+cc ../Loader/DummyAccessLoader.c -o../Loader/DummyAccessLoader -I../Include -D__DEBUG_TRACE__
+#cc ../Loader/DummyAccessLoader.c -o../Loader/DummyAccessLoader -I../Include 
+
+####EXPORTS####
+
+# Move binaries to build folder
+mv -f ../Driver/DummyAccess.ko ../Build
+mv -f ../Driver/DummyAccess.mod.c ../Build
+mv -f ../Driver/DummyAccess.mod.o ../Build
+mv -f ../Driver/DummyAccess.o ../Build
+mv -f ../Driver/Module.markers ../Build
+mv -f ../Driver/modules.order ../Build
+mv -f ../Driver/Module.symvers ../Build
+
+mv -f ../Loader/DummyAccessLoader ../Build
+
+# Copy scripts to build folder
+cp -f ../Loader/DummyAccess_Load ../Build
+cp -f ../Loader/DummyAccess_Unload ../Build

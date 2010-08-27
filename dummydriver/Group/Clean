@@ -1,0 +1,14 @@
+####CLEAN####
+rm ../Build/DummyAccess.ko 
+rm ../Build/DummyAccess.mod.c 
+rm ../Build/DummyAccess.mod.o
+rm ../Build/DummyAccess.o
+rm Module.markers
+rm modules.order
+rm Module.symvers
+
+rm ../Build/DummyAccessLoader
+
+rm ../Build/DummyAccess_Load  
+rm ../Build/DummyAccess_Unload
+

@@ -1,0 +1,71 @@
+#ifndef __MBX_ACCESS_H__
+#define __MBX_ACCESS_H__
+#include<linux/init.h>
+#include<linux/module.h>
+#include<linux/kdev_t.h>
+#include<linux/fs.h>
+#include<linux/ioctl.h>
+#include<linux/slab.h>
+#include<linux/poll.h>
+#include<asm/uaccess.h>
+
+#ifdef __NEW_DEV_REGISTER__
+#include<linux/cdev.h>
+#endif
+
+#include"MBXAccessUser.h"
+#include"KernelDebug.h"
+
+/* Driver Functions */
+
+ssize_t MBXAccess_Read(struct file *filp, char __user *buf, size_t count,
+                loff_t *f_pos);
+ssize_t MBXAccess_Write(struct file *filp, const char __user *buf, size_t count,
+                loff_t *f_pos);
+int MBXAccess_Ioctl(struct inode *inode, struct file *filp,
+                 unsigned int cmd, unsigned long arg);
+int MBXAccess_Open(struct inode *inode, struct file *filp);
+int MBXAccess_Release(struct inode *inode, struct file *filp);
+static int MBXAccess_FAsync(int fd, struct file *filp, int mode);
+static int __init MBXAccess_Init(void);
+static void __exit MBXAccess_Exit(void);
+
+void MBXAccess_StartTimer(char *logstring);
+void MBXAccess_EndTimer(char *logstring);
+
+
+/* Data Structures */
+static struct file_operations MBXAccess_fops =
+{
+    .owner   = THIS_MODULE,
+    .read    = MBXAccess_Read,
+    .write   = MBXAccess_Write,
+    .ioctl   = MBXAccess_Ioctl,
+    .open    = MBXAccess_Open,
+    .release = MBXAccess_Release,
+    .fasync  = MBXAccess_FAsync
+};
+
+struct MBXAccess 
+{
+#ifdef __NEW_DEV_REGISTER__
+    struct cdev dev;
+#endif
+    struct fasync_struct *asyncqueue;
+    int event;
+};
+
+
+
+
+/* Global Variables */
+struct MBXAccess device;
+
+int MBXMajor = 0;
+int MBXMinor = 0;
+int NumMBXs  = 1;
+
+#endif //__MBX_ACCESS_H__
+
+
+

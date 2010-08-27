@@ -1,0 +1,18 @@
+####TARGET####
+
+# Build device driver
+make
+
+# Build Simulator
+cc ../simulator/mbxsimulatoruser.c -o../build/mbxsim -I../inc
+
+####EXPORTS####
+# Move binaries to build folder
+mv -f ../driver/mbxsimulator.ko ../build
+mv -f ../driver/mbxsimulator.mod.c ../build
+mv -f ../driver/mbxsimulator.mod.o ../build
+mv -f ../driver/mbxsimulator.o ../build
+
+# Copy scripts to build folder
+cp -f ../scripts/mbxsimulator_load ../build
+cp -f ../scripts/mbxsimulator_unload ../build
